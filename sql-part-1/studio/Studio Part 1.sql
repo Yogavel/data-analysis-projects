@@ -16,7 +16,7 @@ Write a query to find the least popular book
 
 Select top 1 *
 from BooksDB.dbo.books
-ORDER BY average_rating asc
+ORDER BY average_rating ASC
 
 Question 3
 Which tag is most popular
@@ -40,13 +40,14 @@ ORDER BY count (*) DESC
 Question 5: How many books where released in the first decade of 2000?
 
 SELECT COUNT(*) AS BooksReleased_2ks
-FROM dbo.Books
-WHERE ([original_publication_year]) BETWEEN 2000 AND 2009;
+FROM BooksDB.dbo.Books
+WHERE ([original_publication_year]) BETWEEN 2000 AND 2009
+
 
 Question 6: How many book titles contain the word, "happy"?
 
 SELECT COUNT(*) as Happybook
-FROM books
+FROM BooksDB.dbo.Books
 WHERE original_title LIKE '%happy%'
 
 
@@ -56,14 +57,39 @@ If there is more than one author just use the first one.
  then by `average_rating`, 
  best rated to lowest. Does this order matter in sorting?
 
-select top 3 authors
-from BooksDB.dbo.books order by average_rating
-
-average_rating as Rating_avg
-from books
-order by title ASC, average_rating DESC
+select top 3 * 
+from BooksDB.dbo.books 
+order by authors ASC, average_rating DESC
 
 
+Question 8: Write a query that returns the number of authors 
+whose first name is between rock and roll.
+
+select count (authors) as Authorname
+from BooksDB.dbo.books
+where authors BETWEEN 'rock' and 'roll'
+
+
+## Part 2: Find the Answers to Your Own Questions
+
+Your Question:  Click here to add a questions 
+that you want to answer and write a query to find the answer!
+
+1. What book has the longest title?
+
+SELECT TOP 1 title, LEN(title) AS TitleLength
+FROM BooksDB.dbo.books
+ORDER BY LEN(title) DESC
+
+
+2. Which author wrote most books?
+
+SELECT TOP 1
+authors,
+COUNT(*) AS total_books
+FROM BooksDB.dbo.books
+GROUP BY authors
+ORDER BY total_books DESC
 
 
 
@@ -72,9 +98,3 @@ order by title ASC, average_rating DESC
 
 
 
-
-
-
-SELECT tag_id, tag_name
-FROM BooksDB.dbo.tags
-WHERE tag_id LIKE 30574
